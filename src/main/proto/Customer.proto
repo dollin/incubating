@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.elvaston.dollnei.grpc.model.customer;
+
+message CustomerRequest {
+    string customerName = 1;
+    int64 brId = 2;
+}
+
+enum CustomerStatus {
+    Unknown = 0;
+    RequestSent = 1;
+    AddingSummitDetails = 2;
+    AddingCrdsDetails = 3;
+    Added = 4;
+}
+
+message Customer {
+    string customerName = 1;
+    string legalName = 2;
+    repeated string addressLines = 3;
+    int64 brId = 4;
+    int64 partyAccountID = 5;
+    CustomerStatus customerStatus = 6;
+}
+
+service CustomerService {
+    rpc customerAdd (CustomerRequest) returns (Customer);
+    rpc customerStatus (CustomerRequest) returns (Customer);
+    rpc customerQuery (CustomerRequest) returns (Customer);
+}
